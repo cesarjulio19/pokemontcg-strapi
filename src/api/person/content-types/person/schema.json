@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "people",
+  "info": {
+    "singularName": "person",
+    "pluralName": "people",
+    "displayName": "Person"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "adminRole": {
+      "type": "boolean",
+      "default": false
+    },
+    "email": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "username": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
