@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "my_cards",
+  "info": {
+    "singularName": "my-card",
+    "pluralName": "my-cards",
+    "displayName": "MyCard"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer"
+    },
+    "person": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::person.person"
+    },
+    "card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    }
+  }
+}

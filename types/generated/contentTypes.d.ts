@@ -677,6 +677,159 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCardCard extends Schema.CollectionType {
+  collectionName: 'cards';
+  info: {
+    singularName: 'card';
+    pluralName: 'cards';
+    displayName: 'Card';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    illustration: Attribute.String;
+    name: Attribute.String;
+    number: Attribute.Integer;
+    rarity: Attribute.String;
+    superType: Attribute.String;
+    type: Attribute.String;
+    image: Attribute.Media;
+    set: Attribute.Relation<'api::card.card', 'oneToOne', 'api::set.set'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::card.card', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::card.card', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMyCardMyCard extends Schema.CollectionType {
+  collectionName: 'my_cards';
+  info: {
+    singularName: 'my-card';
+    pluralName: 'my-cards';
+    displayName: 'MyCard';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    quantity: Attribute.Integer;
+    person: Attribute.Relation<
+      'api::my-card.my-card',
+      'oneToOne',
+      'api::person.person'
+    >;
+    card: Attribute.Relation<
+      'api::my-card.my-card',
+      'oneToOne',
+      'api::card.card'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::my-card.my-card',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::my-card.my-card',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPackPack extends Schema.CollectionType {
+  collectionName: 'packs';
+  info: {
+    singularName: 'pack';
+    pluralName: 'packs';
+    displayName: 'Pack';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    set: Attribute.Relation<'api::pack.pack', 'oneToOne', 'api::set.set'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::pack.pack', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::pack.pack', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPersonPerson extends Schema.CollectionType {
+  collectionName: 'people';
+  info: {
+    singularName: 'person';
+    pluralName: 'people';
+    displayName: 'Person';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    adminRole: Attribute.Boolean & Attribute.DefaultTo<false>;
+    email: Attribute.String;
+    image: Attribute.Media;
+    username: Attribute.String;
+    user: Attribute.Relation<
+      'api::person.person',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::person.person',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::person.person',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSetSet extends Schema.CollectionType {
+  collectionName: 'sets';
+  info: {
+    singularName: 'set';
+    pluralName: 'sets';
+    displayName: 'Set';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    image: Attribute.Media;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::set.set', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::set.set', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -693,6 +846,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::card.card': ApiCardCard;
+      'api::my-card.my-card': ApiMyCardMyCard;
+      'api::pack.pack': ApiPackPack;
+      'api::person.person': ApiPersonPerson;
+      'api::set.set': ApiSetSet;
     }
   }
 }
